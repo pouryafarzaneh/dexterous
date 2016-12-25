@@ -1,0 +1,15 @@
+.dex {
+    &__btn {
+        &--default {
+            border: 1px solid $btn-default-color;
+            color: $btn-default-color;
+            background-color: transparent;        
+            &:hover,&:active,&:focus,&.focus {
+                border: 1px solid $btn-default-color;
+                outline: 0;
+                background-color: $btn-default-color;
+                color: #000
+            }
+        }
+    }
+}
