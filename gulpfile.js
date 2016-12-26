@@ -5,6 +5,8 @@ const sass = require('gulp-sass');
 const minifyCss = require('gulp-minify-css');
 const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
+const awspublish = require('gulp-awspublish');
+
 
 const cssSrc = 'src/stylesheets/';
 const cssOutput = 'all.min.css';
@@ -28,8 +30,39 @@ gulp.task('sass', () => {
     .pipe(gulp.dest(buildDest));
 });
 
+
+ 
+gulp.task('deploy', function() {
+  // create a new publisher using S3 options 
+  // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property 
+  var publisher = awspublish.create({
+    region: 'eu-west-2',
+    params: {
+      Bucket: 'www.dexterousgroup.co.uk'
+    }
+  });
+ 
+  // define custom headers 
+  var headers = {
+    'Cache-Control': 'max-age=10800, no-transform, public'
+  };
+ 
+  return gulp.src([
+      '**',
+      '!./node_modules/**',
+      '!./.git/**',
+      '!./src/**'
+  ])
+  .pipe(publisher.publish(headers))
+  // create a cache file to speed up consecutive uploads 
+  .pipe(publisher.cache())
+  // print upload updates to console 
+  .pipe(awspublish.reporter());
+});
+
 gulp.task('watch', () => {
     gulp.watch('src/stylesheets/**/*', ['sass']);
 });
 
-gulp.task('default', ['sass', 'watch']);
+gulp.task('build', ['sass']);
+gulp.task('default', ['build', 'watch']);
