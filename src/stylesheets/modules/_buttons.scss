@@ -1,15 +1,29 @@
 .dex {
     &__btn {
+        border-radius: 3px;
+        font-size: 1.2em;
+        padding: 18px 13px;
+        margin: 15px;
+          
         &--default {
             border: 1px solid $btn-default-color;
             color: $btn-default-color;
-            background-color: transparent;        
+            background-color: transparent; 
+            padding: 15px;
             &:hover,&:active,&:focus,&.focus {
                 border: 1px solid $btn-default-color;
                 outline: 0;
                 background-color: $btn-default-color;
-                color: #000
+                color: #fff;
+              
             }
+          @media all and (min-width: 270px) {
+            display: block;
+          } 
+          @media all and (min-width: 480px) {
+            display: inline-block;
+          }
+            
         }
     }
 }
