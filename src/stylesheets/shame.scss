@@ -32,11 +32,11 @@ body {
 }
 
 .common-text-color {
-    color: #fbba22
+    color: #458ab7
 }
 
 .common-bg-color {
-    background-color: #fcc545
+    background-color: #75a9cb
 }
 
 .title {
@@ -303,11 +303,7 @@ a.navbar-brand .light {
     }
 }
 
-.btn {
-    border-radius: 3px;
-    font-size: 1em;
-    padding: 5px 10px
-}
+
 
 .btn-circle {
     width: 70px;
@@ -557,7 +553,7 @@ a.navbar-brand .light {
 }
 
 .section-testimonial .carousel-indicators {
-    position: inherit;
+    position: relative;
     margin: 0 0 20px;
     left: auto;
     width: 100%;
@@ -614,7 +610,7 @@ a.navbar-brand .light {
     padding: 0;
     max-width: 1300px;
     margin: 0 auto 15px;
-    list-style: none
+    list-style: circle
 }
 
 .portfolio li {
@@ -643,6 +639,19 @@ a.navbar-brand .light {
     position: relative
 }
 
+.portfolio figure h5 {
+  position: absolute;
+  bottom: 0;
+  opacity: 1;
+  left:010px;
+  background-color: #43ADD9;
+  width: auto;
+  text-align: center;
+  padding: 10px;
+  margin: auto auto 0 0;
+  transition: opacity .5s;
+}
+
 .portfolio figcaption {
     position: absolute;
     top: 0;
@@ -655,7 +664,8 @@ a.navbar-brand .light {
 .portfolio figcaption h4 {
     margin: 0 0 10px;
     padding: 0;
-    color: #000
+    color: #000;
+  
 }
 
 .portfolio figcaption span:before {
@@ -731,6 +741,11 @@ a.navbar-brand .light {
     transition: transform .4s,opacity .1s
 }
 
+.portfolio figure:hover h5 {
+  opacity: 0;
+  transition: opacity .5s;
+}
+
 .portfolio figcaption a {
     position: absolute;
     bottom: 15px;
@@ -744,21 +759,49 @@ a.navbar-brand .light {
 }
 
 #services_left .service-item {
-    margin-bottom: 25px
+    margin-bottom: 25px;
+      position: relative;
 }
 
-.services_title {
-    text-transform: uppercase
+.service-list {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 30px;
+  right: 0px;
+  font-size: 18px;
+  line-height: 145%;
+  background-color: rgba(255, 255, 255, 0.94);
+  visibility: visible;
+  opacity: 0;
+    margin-right: 10px;
 }
 
-.services_title span {
-    display: block;
-    font-size: 35px
+.service-list:hover {
+  visibility: visible;
+  opacity: 1;
 }
+
+
+.services-ul {
+  list-style: circle;
+}   
+
+.services-ul li {
+  margin-top: 10px;
+  list-style: circle
+}
+
+.service-item Figure h4 {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 .servicessubtitle {
     text-transform: uppercase;
-    margin-bottom: 18px
+    margin-bottom: 18px;
+    text-align: center;
 }
 
 #services_left figure img {

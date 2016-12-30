@@ -12,6 +12,30 @@ const cssSrc = 'src/stylesheets/';
 const cssOutput = 'all.min.css';
 const buildDest = 'build';
 
+const webserver = require('gulp-webserver');
+
+gulp.task('serve', () => {
+  gulp.src('.')
+    .pipe(webserver({
+      livereload: {
+        enable: true, // need this set to true to enable livereload
+        filter: function(fileName) {
+          if (fileName.match(/(gif|jpg|jpeg|tiff|png)/)) { // exclude all source maps from livereload
+            return false;
+          } else {
+            return true;
+          }
+        }
+      },
+      directoryListing: false,
+      open: true,
+      port: 9300,
+      host: 'localhost',
+      fallback: 'index.html'
+    }))
+    .on('error', err => console.log(err));
+});
+          
 gulp.task('sass', () => {
   return gulp.src(cssSrc.concat('main.scss'))
     .pipe(sass({
@@ -44,7 +68,7 @@ gulp.task('deploy', function() {
  
   // define custom headers 
   var headers = {
-    'Cache-Control': 'max-age=10800, no-transform, public'
+    'Cache-Control': 'max-age=60, no-transform, public'
   };
  
   return gulp.src([
@@ -55,7 +79,7 @@ gulp.task('deploy', function() {
   ])
   .pipe(publisher.publish(headers))
   // create a cache file to speed up consecutive uploads 
-  .pipe(publisher.cache())
+  //.pipe(publisher.cache())
   // print upload updates to console 
   .pipe(awspublish.reporter());
 });
@@ -65,4 +89,4 @@ gulp.task('watch', () => {
 });
 
 gulp.task('build', ['sass']);
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build', 'serve', 'watch']);
